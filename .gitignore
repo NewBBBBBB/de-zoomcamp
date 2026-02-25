@@ -49,3 +49,17 @@ data/
 # =========================
 *.duckdb
 *.duckdb.wal
+
+# =========================
+# Terraform (keep if using)
+# =========================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# =========================
+# Secrets
+# =========================
+.env
+google_credentials.json
