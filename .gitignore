@@ -18,4 +18,34 @@ serving_dir
 *.csv
 /w2/*.json
 **/terraform/*.json
-/w4/.venv/
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# =========================
+# dbt
+# =========================
+target/
+dbt_packages/
+logs/
+
+# =========================
+# Data files (VERY IMPORTANT)
+# =========================
+data/
+*.parquet
+*.csv
+*.csv.gz
+
+# =========================
+# DuckDB
+# =========================
+*.duckdb
+*.duckdb.wal
