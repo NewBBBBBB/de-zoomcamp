@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: speed_raw
+    database: "{{ var('gcp_project') }}"
+    schema: "{{ var('raw_dataset') }}"
+    tables:
+      - name: ookla_tiles_ext
+        description: >
+          External BigQuery table over `gs://{bucket}/ookla/` with hive
+          partitioning on (type, year, quarter). Produced by Airflow.
+        columns:
+          - name: quadkey
+            tests: [not_null]
+          - name: tile_x
+          - name: tile_y
+          - name: avg_d_kbps
+          - name: avg_u_kbps
+          - name: avg_lat_ms
+          - name: tests
+          - name: devices
+          - name: type
+          - name: year
+          - name: quarter

@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: stg_ookla_tiles
+    description: Normalised Ookla tiles within Malaysia bounding box.
+    columns:
+      - name: quadkey
+        tests: [not_null]
+      - name: connection_type
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["fixed", "mobile"]
+      - name: year
+        tests: [not_null]
+      - name: quarter
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+                quote: false
+      - name: avg_d_mbps
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 10000
+      - name: tests
+        tests: [not_null]
+
+  - name: int_tile_state
+    description: Tiles with a state assigned via priority-ranked bbox match.
+
+  - name: fct_tile_performance
+    description: Tile-level fact table, partitioned by quarter_start.
+    columns:
+      - name: quadkey
+        tests: [not_null]
+      - name: connection_type
+        tests: [not_null]
+      - name: state_code
+        tests: [not_null]
+
+  - name: fct_state_quarterly
+    description: State × quarter × connection_type aggregate.
+    columns:
+      - name: state_code
+        tests: [not_null]
+      - name: connection_type
+        tests: [not_null]
+      - name: quarter_start
+        tests: [not_null]
+      - name: avg_d_mbps
+        tests: [not_null]
+
+  - name: fct_national_quarterly
+    description: National-level time series for dashboard trends.
+    columns:
+      - name: connection_type
+        tests: [not_null]
+      - name: quarter_start
+        tests: [not_null]
+      - name: avg_d_mbps
+        tests: [not_null]

@@ -1,0 +1,4 @@
+project_id = "iron-figure-312018"
+region     = "us-central1"
+location   = "US"
+prefix     = "my-speed"

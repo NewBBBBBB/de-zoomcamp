@@ -1,0 +1,21 @@
+name: my_speed
+version: "1.0.0"
+profile: my_speed
+config-version: 2
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  my_speed:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+vars:
+  gcp_project: "iron-figure-312018"
+  raw_dataset: "speed_raw"
+  marts_dataset: "speed_marts"

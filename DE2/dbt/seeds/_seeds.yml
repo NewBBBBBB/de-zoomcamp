@@ -1,0 +1,26 @@
+version: 2
+
+seeds:
+  - name: my_state_bbox
+    description: >
+      Rough bounding boxes for Malaysian states / federal territories.
+      Used by `int_tile_state` to assign each Ookla tile to a state via a
+      simple priority-ranked CROSS JOIN. Not a substitute for a real
+      shapefile join, but adequate for dashboard-level aggregation.
+    config:
+      column_types:
+        lon_min: float64
+        lon_max: float64
+        lat_min: float64
+        lat_max: float64
+        priority: int64
+    columns:
+      - name: state_code
+        tests: [not_null, unique]
+      - name: state_name
+        tests: [not_null]
+      - name: region
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["Peninsular", "Borneo"]
